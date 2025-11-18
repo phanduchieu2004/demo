@@ -81,6 +81,7 @@ public class Them extends HttpServlet {
                 soDienThoaiVien, emailVien, ngayThanhLapVien);
 
         vien.them(vien);
+        System.out.println("Thêm viện thành công");
 
         // sql.themVien(maVien, tenVien, tenTruongVien, soDienThoaiVien, emailVien,
         // ngayThanhLapVien);
