@@ -71,16 +71,16 @@ public class tblVien {
         this.ngayThanhLapVien = truyVanTheoMa_1C(this.maVien, "NgayThanhLapVien");
     }
 
-    // ! lay va sua cac thuoc tinh
-    public String getMaVien() {
-        return maVien;
-    }
-
     public void setMaVien(String maVien) {
         if (!sql.kiemTraKhoaChinh("tblVien", "MaVien", maVien)) {
             this.maVien = maVien;
         }
         System.err.println("Lỗi: Trùng khóa chính Mã Viện");
+    }
+
+    // ! lay va sua cac thuoc tinh
+    public String getMaVien() {
+        return maVien;
     }
 
     public String getTenVien() {
