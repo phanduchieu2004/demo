@@ -45,10 +45,12 @@ public class tblVien {
     }
 
     public void xoa(String maVienString) {
+        sql.xoaBanGhi("tblKhoa", "MaVien = '" + maVienString + "'");
         sql.xoaBanGhi("tblVien", "MaVien = '" + maVienString + "'");
     }
 
     public void xoa() {
+        sql.xoaBanGhi("tblKhoa", "MaVien = '" + this.maVien + "'");
         sql.xoaBanGhi("tblVien", "MaVien = '" + this.maVien + "'");
     }
 
