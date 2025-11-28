@@ -62,7 +62,6 @@ public class tblVien {
 
     public void truyVanTheoMa(String maVienString) {
         this.maVien = maVienString;
-
         this.tenVien = truyVanTheoMa_1C(this.maVien, "TenVien");
         this.tenTruongVien = truyVanTheoMa_1C(this.maVien, "TenTruongVien");
         this.soDienThoaiVien = truyVanTheoMa_1C(this.maVien, "SoDienThoaiVien");
