@@ -76,14 +76,7 @@ public class tblLopHocPhan {
             this.maLopHocPhan = ma;
         }
     }
-
-    public String getMaLopHocPhan() {
-        return maLopHocPhan;
-    }
-
-    public String getTenLopHocPhan() {
-        return tenLopHocPhan;
-    }
+    // !TODO Chua xong
 
     public String getMaHocPhan() {
         return maHocPhan;
@@ -93,15 +86,4 @@ public class tblLopHocPhan {
         return msgv;
     }
 
-    public String getThoiGian() {
-        return thoiGian;
-    }
-
-    public Integer getSoBuoi() {
-        return soBuoi;
-    }
-
-    public String getPhongHoc() {
-        return phongHoc;
-    }
 }

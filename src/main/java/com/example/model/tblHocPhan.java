@@ -79,23 +79,12 @@ public class tblHocPhan {
         }
     }
 
-    public String getMaHocPhan() {
-        return maHocPhan;
+    public String getTenNganh() {
+        String tenNganh = sql.timKiem("TenNganh", "tblNganh", "MaNganh = '" + this.maNganh + "'");
+        if (tenNganh == null) {
+            tenNganh = "";
+        }
+        return tenNganh;
     }
 
-    public String getTenHocPhan() {
-        return tenHocPhan;
-    }
-
-    public Integer getSoTinChi() {
-        return soTinChi;
-    }
-
-    public String getMaNganh() {
-        return maNganh;
-    }
-
-    public String getMoTaHocPhan() {
-        return moTaHocPhan;
-    }
 }

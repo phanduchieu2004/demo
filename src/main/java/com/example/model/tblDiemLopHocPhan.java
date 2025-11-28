@@ -66,10 +66,7 @@ public class tblDiemLopHocPhan {
         }
     }
 
-    public String getMaDiem() {
-        return maDiem;
-    }
-
+    // !TODO Chua xong
     public String getMaLopHocPhan() {
         return maLopHocPhan;
     }
@@ -78,19 +75,4 @@ public class tblDiemLopHocPhan {
         return maSinhVien;
     }
 
-    public Double getDiemQuaTrinh() {
-        return diemQuaTrinh;
-    }
-
-    public Double getDiemCuoiKy() {
-        return diemCuoiKy;
-    }
-
-    public Double getDiemTong() {
-        return diemTong;
-    }
-
-    public String getKetQua() {
-        return ketQua;
-    }
 }

@@ -75,20 +75,10 @@ public class tblNganh {
             this.tenNganh = tenNganh;
         }
     }
-
-    public String getMaNganh() {
-        return maNganh;
-    }
-
-    public String getTenNganh() {
-        return tenNganh;
-    }
+    // !TODO Chua xong
 
     public String getMaKhoa() {
         return maKhoa;
     }
 
-    public String getMoTaNganh() {
-        return moTaNganh;
-    }
 }

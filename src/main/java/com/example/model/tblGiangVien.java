@@ -99,43 +99,9 @@ public class tblGiangVien {
         }
     }
 
-    public String getMSGV() {
-        return msgv;
-    }
-
-    public String getHoTenGV() {
-        return hoTenGV;
-    }
-
-    public String getNgaySinhGV() {
-        return ngaySinhGV;
-    }
-
-    public String getGioiTinhGV() {
-        return gioiTinhGV;
-    }
-
-    public String getQueQuanGV() {
-        return queQuanGV;
-    }
-
-    public String getEmailGV() {
-        return emailGV;
-    }
-
+    // !TODO Chua xong
     public String getMaNganh() {
         return maNganh;
     }
 
-    public String getSoDienThoaiGV() {
-        return soDienThoaiGV;
-    }
-
-    public String getAnhGV() {
-        return anhGV;
-    }
-
-    public String getTrangThaiGV() {
-        return trangThaiGV;
-    }
 }

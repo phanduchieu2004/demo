@@ -134,29 +134,4 @@ public class tblVien {
         }
     }
 
-    // ! lay cac thuoc tinh
-    public String getMaVien() {
-        return maVien;
-    }
-
-    public String getTenVien() {
-        return tenVien;
-    }
-
-    public String getTenTruongVien() {
-        return tenTruongVien;
-    }
-
-    public String getSoDienThoaiVien() {
-        return soDienThoaiVien;
-    }
-
-    public String getEmailVien() {
-        return emailVien;
-    }
-
-    public String getNgayThanhLapVien() {
-        return ngayThanhLapVien;
-    }
-
 }

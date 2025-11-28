@@ -99,43 +99,9 @@ public class tblSinhVien {
         }
     }
 
-    public String getMSSV() {
-        return mssv;
-    }
-
-    public String getHoTenSV() {
-        return hoTenSV;
-    }
-
-    public String getNgaySinhSV() {
-        return ngaySinhSV;
-    }
-
-    public String getGioiTinhSV() {
-        return gioiTinhSV;
-    }
-
-    public String getQueQuanSV() {
-        return queQuanSV;
-    }
-
-    public String getEmailSV() {
-        return emailSV;
-    }
-
+    // !TODO Chua xong
     public String getMaLop() {
         return maLop;
     }
 
-    public String getSoDienThoaiSV() {
-        return soDienThoaiSV;
-    }
-
-    public String getAnhSV() {
-        return anhSV;
-    }
-
-    public String getTrangThaiSV() {
-        return trangThaiSV;
-    }
 }

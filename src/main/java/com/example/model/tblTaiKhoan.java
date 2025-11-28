@@ -59,24 +59,6 @@ public class tblTaiKhoan {
             this.maTaiKhoan = ma;
         }
     }
+    // !TODO thieu
 
-    public String getMaTaiKhoan() {
-        return maTaiKhoan;
-    }
-
-    public String getTenDangNhap() {
-        return tenDangNhap;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public String getVaiTro() {
-        return vaiTro;
-    }
-
-    public String getMaSinhVien() {
-        return maSinhVien;
-    }
 }

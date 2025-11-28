@@ -59,10 +59,7 @@ public class tblDangKyHocPhan {
         }
     }
 
-    public String getMaDangKy() {
-        return maDangKy;
-    }
-
+    // !TODO Chua xong
     public String getMaSinhVien() {
         return maSinhVien;
     }
@@ -75,7 +72,4 @@ public class tblDangKyHocPhan {
         return maLopHocPhan;
     }
 
-    public String getTrangThai() {
-        return trangThai;
-    }
 }

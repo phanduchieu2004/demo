@@ -100,35 +100,11 @@ public class tblKhoa {
         }
     }
 
-    public String getMaKhoa() {
-        return maKhoa;
-    }
-
-    public String getTenKhoa() {
-        return tenKhoa;
-    }
-
-    public String getMaVien() {
-        return maVien;
-    }
-
-    public String getTenTruongKhoa() {
-        return tenTruongKhoa;
-    }
-
-    public String getSoDienThoaiKhoa() {
-        return soDienThoaiKhoa;
-    }
-
-    public String getEmailKhoa() {
-        return emailKhoa;
-    }
-
-    public String getNgayThanhLapKhoa() {
-        return ngayThanhLapKhoa;
-    }
-
-    public String getMoTaKhoa() {
-        return moTaKhoa;
+    public String getTenVien() {
+        String tenVien = sql.timKiem("TenVien", "tblVien", "MaVien = '" + this.maVien + "'");
+        if (tenVien == null) {
+            tenVien = "";
+        }
+        return tenVien;
     }
 }

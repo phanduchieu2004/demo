@@ -67,10 +67,7 @@ public class tblDiemDanh {
         }
     }
 
-    public String getMaDiemDanh() {
-        return maDiemDanh;
-    }
-
+    // !TODO Chua xong
     public String getMaLopHocPhan() {
         return maLopHocPhan;
     }
@@ -79,11 +76,4 @@ public class tblDiemDanh {
         return maSinhVien;
     }
 
-    public String getNgayDiemDanh() {
-        return ngayDiemDanh;
-    }
-
-    public Boolean getCoMat() {
-        return coMat;
-    }
 }

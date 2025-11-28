@@ -77,18 +77,7 @@ public class tblLop {
         }
     }
 
-    public String getMaLop() {
-        return maLop;
-    }
-
-    public Integer getKhoaHoc() {
-        return khoaHoc;
-    }
-
-    public String getTenLop() {
-        return tenLop;
-    }
-
+    // !TODO Chua xong
     public String getMaNganh() {
         return maNganh;
     }
