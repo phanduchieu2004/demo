@@ -6,12 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class tblDiemDanh {
     ChucNangSQL sql = new ChucNangSQL();
-
     public String maDiemDanh;
-    public String maLopHocPhan;
-    public String maSinhVien;
-    public String ngayDiemDanh; // stored as text
-    public Boolean coMat;
+    public String maDangKyHocPhan;
+    public String chuoiDiemDanh;
+    public String ghiChu;
     public HttpServletRequest request;
     public Boolean bao_loi = false;
 
@@ -23,26 +21,19 @@ public class tblDiemDanh {
     }
 
     public void them() {
-        // Map fields into DB columns: MSSV, IDLopHocPhan, ChuoiDiemDanh, GhiChu
-        String chuoi = ngayDiemDanh == null ? "" : ngayDiemDanh;
-        String ghi = (coMat == null ? "0" : (coMat ? "1" : "0"));
-        sql.themDiemDanh(maSinhVien, maLopHocPhan, chuoi, ghi);
+        sql.themDiemDanh(maDiemDanh, maDangKyHocPhan, chuoiDiemDanh, ghiChu);
     }
 
     public void them(tblDiemDanh d) {
-        sql.themDiemDanh(d.maSinhVien, d.maLopHocPhan, d.ngayDiemDanh == null ? "" : d.ngayDiemDanh,
-                (d.coMat == null ? "0" : (d.coMat ? "1" : "0")));
+        sql.themDiemDanh(d.maDiemDanh, d.maDangKyHocPhan, d.chuoiDiemDanh, d.ghiChu);
     }
 
     public void sua() {
-        String chuoi = ngayDiemDanh == null ? "" : ngayDiemDanh;
-        String ghi = (coMat == null ? "0" : (coMat ? "1" : "0"));
-        sql.suaDiemDanh(maDiemDanh, maSinhVien, maLopHocPhan, chuoi, ghi);
+        sql.suaDiemDanh(maDiemDanh, maDangKyHocPhan, chuoiDiemDanh, ghiChu);
     }
 
     public void sua(tblDiemDanh d) {
-        sql.suaDiemDanh(d.maDiemDanh, d.maSinhVien, d.maLopHocPhan, d.ngayDiemDanh == null ? "" : d.ngayDiemDanh,
-                (d.coMat == null ? "0" : (d.coMat ? "1" : "0")));
+        sql.suaDiemDanh(d.maDiemDanh, d.maDangKyHocPhan, d.chuoiDiemDanh, d.ghiChu);
     }
 
     public void xoa() {
@@ -51,13 +42,12 @@ public class tblDiemDanh {
 
     public void truyVanTheoMa(String ma) {
         this.maDiemDanh = ma;
-        this.maLopHocPhan = sql.timKiem("MaLopHocPhan", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
-        this.maSinhVien = sql.timKiem("MaSinhVien", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
-        this.ngayDiemDanh = sql.timKiem("NgayDiemDanh", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
-        String cm = sql.timKiem("CoMat", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
-        this.coMat = "1".equals(cm) || "true".equalsIgnoreCase(cm);
+        this.maDangKyHocPhan = sql.timKiem("MaDangKyHocPhan", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
+        this.chuoiDiemDanh = sql.timKiem("ChuoiDiemDanh", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
+        this.ghiChu = sql.timKiem("GhiChu", "tblDiemDanh", "MaDiemDanh='" + ma + "'");
     }
 
+    // *set */
     public void setMaDiemDanh(String ma) {
         if (ma == null || ma.trim().isEmpty()) {
             request.setAttribute("loiMaDiemDanh", "Mã điểm danh không được để trống");
@@ -67,13 +57,37 @@ public class tblDiemDanh {
         }
     }
 
-    // !TODO Chua xong
-    public String getMaLopHocPhan() {
-        return maLopHocPhan;
+    public void setMaDangKyHocPhan(String ma) {
+        if (ma == null || ma.trim().isEmpty()) {
+            request.setAttribute("loiMaDangKyHocPhan", "Mã đăng ký học phần không được để trống");
+            bao_loi = true;
+        } else {
+            this.maDangKyHocPhan = ma;
+        }
     }
 
-    public String getMaSinhVien() {
-        return maSinhVien;
+    // !can kiem tra lai
+    public void setChuoiDiemDanh(String chuoi) {
+        if (chuoi == null || chuoi.trim().isEmpty()) {
+            request.setAttribute("loiChuoiDiemDanh", "Chuỗi điểm danh không được để trống");
+            bao_loi = true;
+        } else {
+            this.chuoiDiemDanh = chuoi;
+        }
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    // *get */
+
+    // * Lay tong the */
+    public String getTblDangKyHocPhan(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblDangKyHocPhan",
+                "MaDangKyHocPhan = (SELECT MaDangKyHocPhan FROM tblDiemDanh WHERE MaDiemDanh = '" + maDiemDanh
+                        + "')");
+        return kq;
     }
 
 }

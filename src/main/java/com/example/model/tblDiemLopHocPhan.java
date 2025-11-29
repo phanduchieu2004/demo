@@ -7,13 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class tblDiemLopHocPhan {
     ChucNangSQL sql = new ChucNangSQL();
 
-    public String maDiem;
-    public String maLopHocPhan;
-    public String maSinhVien;
+    public String maDiemLopHocPhan;
+    public String maDangKyHocPhan;
     public Double diemQuaTrinh;
-    public Double diemCuoiKy;
-    public Double diemTong;
-    public String ketQua;
+    public Double diemThi;
+    public Double diemTongKet;
+    public String xepLoai;
     public HttpServletRequest request;
     public Boolean bao_loi = false;
 
@@ -25,54 +24,102 @@ public class tblDiemLopHocPhan {
     }
 
     public void them() {
-        sql.themDiemLopHocPhan(maSinhVien, maLopHocPhan, diemQuaTrinh, diemCuoiKy, diemTong);
+        sql.themDiemLopHocPhan(maDiemLopHocPhan, maDangKyHocPhan, diemQuaTrinh, diemThi, diemTongKet, xepLoai);
     }
 
     public void them(tblDiemLopHocPhan d) {
-        sql.themDiemLopHocPhan(d.maSinhVien, d.maLopHocPhan, d.diemQuaTrinh, d.diemCuoiKy, d.diemTong);
+        sql.themDiemLopHocPhan(d.maDiemLopHocPhan, d.maDangKyHocPhan, d.diemQuaTrinh, d.diemThi, d.diemTongKet,
+                d.xepLoai);
     }
 
     public void sua() {
-        sql.suaDiemLopHocPhan(maDiem, maSinhVien, maLopHocPhan, diemQuaTrinh, diemCuoiKy, diemTong);
+        sql.suaDiemLopHocPhan(maDiemLopHocPhan, maDangKyHocPhan, diemQuaTrinh, diemThi, diemTongKet, xepLoai);
     }
 
     public void sua(tblDiemLopHocPhan d) {
-        sql.suaDiemLopHocPhan(d.maDiem, d.maSinhVien, d.maLopHocPhan, d.diemQuaTrinh, d.diemCuoiKy, d.diemTong);
+        sql.suaDiemLopHocPhan(d.maDiemLopHocPhan, d.maDangKyHocPhan, d.diemQuaTrinh, d.diemThi, d.diemTongKet,
+                d.xepLoai);
     }
 
     public void xoa() {
-        sql.xoaBanGhi("tblDiemLopHocPhan", "MaDiem = '" + maDiem + "'");
+        sql.xoaBanGhi("tblDiemLopHocPhan", "MaDiemLopHocPhan = '" + maDiemLopHocPhan + "'");
     }
 
     public void truyVanTheoMa(String ma) {
-        this.maDiem = ma;
-        this.maLopHocPhan = sql.timKiem("IDDangKyHocPhan", "tblDiemLopHocPhan", "IDDiemLopHocPhan='" + ma + "'");
-        this.maSinhVien = sql.timKiem("MSSV", "tblDiemLopHocPhan", "IDDiemLopHocPhan='" + ma + "'");
+        this.maDiemLopHocPhan = ma;
+        this.maDangKyHocPhan = sql.timKiem("MaDangKyHocPhan", "tblDiemLopHocPhan", "MaDiemLopHocPhan='" + ma + "'");
         this.diemQuaTrinh = Double
-                .valueOf(sql.timKiem("DiemQuaTrinh", "tblDiemLopHocPhan", "IDDiemLopHocPhan='" + ma + "'"));
-        this.diemCuoiKy = Double
-                .valueOf(sql.timKiem("DiemThi", "tblDiemLopHocPhan", "IDDiemLopHocPhan='" + ma + "'"));
-        this.diemTong = Double
-                .valueOf(sql.timKiem("DiemTongKet", "tblDiemLopHocPhan", "IDDiemLopHocPhan='" + ma + "'"));
-
+                .valueOf(sql.timKiem("DiemQuaTrinh", "tblDiemLopHocPhan", "MaDiemLopHocPhan='" + ma + "'"));
+        this.diemThi = Double.valueOf(sql.timKiem("DiemThi", "tblDiemLopHocPhan", "MaDiemLopHocPhan='" + ma + "'"));
+        this.diemTongKet = Double
+                .valueOf(sql.timKiem("DiemTongKet", "tblDiemLopHocPhan", "MaDiemLopHocPhan='" + ma + "'"));
+        this.xepLoai = sql.timKiem("XepLoai", "tblDiemLopHocPhan", "MaDiemLopHocPhan='" + ma + "'");
     }
 
-    public void setMaDiem(String ma) {
+    public void setMaDiemLopHocPhan(String ma) {
         if (ma == null || ma.trim().isEmpty()) {
-            request.setAttribute("loiMaDiem", "Mã điểm không được để trống");
+            request.setAttribute("loiMaDiemLopHocPhan", "Mã điểm lớp học phần không được để trống");
             bao_loi = true;
         } else {
-            this.maDiem = ma;
+            this.maDiemLopHocPhan = ma;
         }
     }
 
-    // !TODO Chua xong
-    public String getMaLopHocPhan() {
-        return maLopHocPhan;
+    public void setMaDangKyHocPhan(String ma) {
+        if (ma == null || ma.trim().isEmpty()) {
+            request.setAttribute("loiMaDangKyHocPhan", "Mã đăng ký học phần không được để trống");
+            bao_loi = true;
+        } else {
+            this.maDangKyHocPhan = ma;
+        }
     }
 
-    public String getMaSinhVien() {
-        return maSinhVien;
+    public void setDiemQuaTrinh(Double diem) {
+        if (diem == null || diem < 0 || diem > 10) {
+            request.setAttribute("loiDiemQuaTrinh", "Điểm quá trình phải từ 0 đến 10");
+            bao_loi = true;
+        } else {
+            this.diemQuaTrinh = diem;
+        }
+    }
+
+    public void setDiemThi(Double diem) {
+        if (diem == null || diem < 0 || diem > 10) {
+            request.setAttribute("loiDiemThi", "Điểm thi phải từ 0 đến 10");
+            bao_loi = true;
+        } else {
+            this.diemThi = diem;
+        }
+    }
+
+    public void setDiemTongKet() {
+        this.diemTongKet = this.diemQuaTrinh * 0.5 + this.diemThi * 0.5;
+    }
+
+    public void setXepLoai() {
+        if (this.diemTongKet > 8) {
+            this.xepLoai = "Giỏi";
+        } else if (this.diemTongKet >= 6.5) {
+            this.xepLoai = "Khá";
+        } else if (this.diemTongKet >= 5) {
+            this.xepLoai = "Trung Bình";
+        } else {
+            this.xepLoai = "Yếu";
+        }
+        System.out.println("Xếp loại: " + this.xepLoai + "?");
+    }
+
+    // *get
+    // public String getMaDangKyHocPhan() {
+    // return maDangKyHocPhan;
+    // }
+
+    // * Lay tong the
+    public String getTblDangKyHocPhan(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblDangKyHocPhan",
+                "MaDangKyHocPhan = (SELECT MaDangKyHocPhan FROM tblDiemLopHocPhan WHERE MaDiemLopHocPhan = '"
+                        + maDiemLopHocPhan + "')");
+        return kq;
     }
 
 }

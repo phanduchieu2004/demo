@@ -116,24 +116,30 @@ public class ChucNangSQL {
     /**
      * Thêm khoa mới vào hệ thống.
      * SQL: INSERT INTO tblKhoa (...)
+     * Các trường: MaKhoa, TenKhoa, MaVien, TenTruongKhoa, SoDienThoaiKhoa,
+     * EmailKhoa, NgayThanhLapKhoa, MoTaKhoa, TrangThaiKhoa
      */
     public void themKhoa(String maKhoa, String tenKhoa, String maVien, String tenTruongKhoa, String soDienThoaiKhoa,
-            String emailKhoa, String ngayThanhLapKhoa, String moTaKhoa) {
+            String emailKhoa, String ngayThanhLapKhoa, String moTaKhoa, String trangThaiKhoa) {
         ql.ChayLenhSQL(
-                "INSERT INTO tblKhoa (MaKhoa, TenKhoa, MaVien, TenTruongKhoa, SoDienThoaiKhoa, EmailKhoa, NgayThanhLapKhoa, MoTaKhoa) VALUES ('"
+                "INSERT INTO tblKhoa (MaKhoa, TenKhoa, MaVien, TenTruongKhoa, SoDienThoaiKhoa, EmailKhoa, NgayThanhLapKhoa, MoTaKhoa, TrangThaiKhoa) VALUES ('"
                         + maKhoa + "', '" + tenKhoa + "', '" + maVien + "', '" + tenTruongKhoa + "', '"
-                        + soDienThoaiKhoa + "', '" + emailKhoa + "', '" + ngayThanhLapKhoa + "', '" + moTaKhoa + "');");
+                        + soDienThoaiKhoa + "', '" + emailKhoa + "', '" + ngayThanhLapKhoa + "', '" + moTaKhoa + "', '"
+                        + trangThaiKhoa + "');");
     }
 
     /**
      * Sửa thông tin khoa.
      * SQL: UPDATE tblKhoa SET ... WHERE MaKhoa='...'
+     * Các trường: TenKhoa, MaVien, TenTruongKhoa, SoDienThoaiKhoa, EmailKhoa,
+     * NgayThanhLapKhoa, MoTaKhoa, TrangThaiKhoa
      */
     public void suaKhoa(String maKhoaCanSua, String tenKhoa, String maVien, String tenTruongKhoa,
-            String soDienThoaiKhoa, String emailKhoa, String ngayThanhLapKhoa, String moTaKhoa) {
+            String soDienThoaiKhoa, String emailKhoa, String ngayThanhLapKhoa, String moTaKhoa, String trangThaiKhoa) {
         ql.ChayLenhSQL("UPDATE tblKhoa SET TenKhoa='" + tenKhoa + "', MaVien='" + maVien + "', TenTruongKhoa='"
                 + tenTruongKhoa + "', SoDienThoaiKhoa='" + soDienThoaiKhoa + "', EmailKhoa='" + emailKhoa
-                + "', NgayThanhLapKhoa='" + ngayThanhLapKhoa + "', MoTaKhoa='" + moTaKhoa + "' WHERE MaKhoa='"
+                + "', NgayThanhLapKhoa='" + ngayThanhLapKhoa + "', MoTaKhoa='" + moTaKhoa + "', TrangThaiKhoa='"
+                + trangThaiKhoa + "' WHERE MaKhoa='"
                 + maKhoaCanSua + "';");
     }
 
@@ -144,19 +150,23 @@ public class ChucNangSQL {
     /**
      * Thêm ngành mới vào hệ thống.
      * SQL: INSERT INTO tblNganh (...)
+     * Các trường: MaNganh, TenNganh, MaKhoa, MoTaNganh, TrangThaiNganh
      */
-    public void themNganh(String maNganh, String tenNganh, String maKhoa, String moTaNganh) {
-        ql.ChayLenhSQL("INSERT INTO tblNganh (MaNganh, TenNganh, MaKhoa, MoTaNganh) VALUES ('" + maNganh + "', '"
-                + tenNganh + "', '" + maKhoa + "', '" + moTaNganh + "');");
+    public void themNganh(String maNganh, String tenNganh, String maKhoa, String moTaNganh, String trangThaiNganh) {
+        ql.ChayLenhSQL("INSERT INTO tblNganh (MaNganh, TenNganh, MaKhoa, MoTaNganh, TrangThaiNganh) VALUES ('" + maNganh
+                + "', '"
+                + tenNganh + "', '" + maKhoa + "', '" + moTaNganh + "', '" + trangThaiNganh + "');");
     }
 
     /**
      * Sửa thông tin ngành.
      * SQL: UPDATE tblNganh SET ... WHERE MaNganh='...'
+     * Các trường: TenNganh, MaKhoa, MoTaNganh, TrangThaiNganh
      */
-    public void suaNganh(String maNganhCanSua, String tenNganh, String maKhoa, String moTaNganh) {
+    public void suaNganh(String maNganhCanSua, String tenNganh, String maKhoa, String moTaNganh,
+            String trangThaiNganh) {
         ql.ChayLenhSQL("UPDATE tblNganh SET TenNganh='" + tenNganh + "', MaKhoa='" + maKhoa + "', MoTaNganh='"
-                + moTaNganh + "' WHERE MaNganh='" + maNganhCanSua + "';");
+                + moTaNganh + "', TrangThaiNganh='" + trangThaiNganh + "' WHERE MaNganh='" + maNganhCanSua + "';");
     }
 
     // =========================
@@ -188,43 +198,72 @@ public class ChucNangSQL {
     /**
      * Thêm lớp học phần mới vào hệ thống.
      * SQL: INSERT INTO tblLopHocPhan (...)
+     * Các trường: MaLopHocPhan, TenLopHocPhan, MaHocPhan, MSGV, SoBuoi, SoTiet,
+     * SoTuanHoc, ThuTiet, PhongHoc, ThoiGianBatDau, ThoiGianKetThuc, ThoiGianHoc,
+     * SoLuongToiDa, TrangThaiLopHocPhan
      */
     public void themLopHocPhan(String maLopHocPhan, String tenLopHocPhan, String maHocPhan, String msgv,
-            String thoiGian, Integer soBuoi, String phongHoc) {
+            Integer soBuoi, Integer soTiet, String soTuanHoc, String thuTiet, String phongHoc, String thoiGianBatDau,
+            String thoiGianKetThuc, String thoiGianHoc, Integer soLuongToiDa, String trangThaiLopHocPhan) {
         ql.ChayLenhSQL(
-                "INSERT INTO tblLopHocPhan (MaLopHocPhan, TenLopHocPhan, MaHocPhan, MSGV, ThoiGian, SoBuoi, PhongHoc) VALUES ('"
-                        + maLopHocPhan + "', '" + tenLopHocPhan + "', '" + maHocPhan + "', '" + msgv + "', '" + thoiGian
-                        + "', "
-                        + (soBuoi == null ? "NULL" : soBuoi) + ", '" + phongHoc + "');");
+                "INSERT INTO tblLopHocPhan (MaLopHocPhan, TenLopHocPhan, MaHocPhan, MSGV, SoBuoi, SoTiet, SoTuanHoc, ThuTiet, PhongHoc, ThoiGianBatDau, ThoiGianKetThuc, ThoiGianHoc, SoLuongToiDa, TrangThaiLopHocPhan) VALUES ('"
+                        + maLopHocPhan + "', '" + tenLopHocPhan + "', '" + maHocPhan + "', '" + msgv + "', "
+                        + (soBuoi == null ? "NULL" : soBuoi) + ", " + (soTiet == null ? "NULL" : soTiet) + ", '"
+                        + (soTuanHoc == null ? "" : soTuanHoc) + "', '" + (thuTiet == null ? "" : thuTiet) + "', '"
+                        + (phongHoc == null ? "" : phongHoc) + "', '" + (thoiGianBatDau == null ? "" : thoiGianBatDau)
+                        + "', '"
+                        + (thoiGianKetThuc == null ? "" : thoiGianKetThuc) + "', '"
+                        + (thoiGianHoc == null ? "" : thoiGianHoc) + "', "
+                        + (soLuongToiDa == null ? "NULL" : soLuongToiDa) + ", '"
+                        + (trangThaiLopHocPhan == null ? "" : trangThaiLopHocPhan) + "');");
     }
 
     /**
      * Sửa thông tin lớp học phần.
      * SQL: UPDATE tblLopHocPhan SET ... WHERE MaLopHocPhan='...'
+     * Các trường: TenLopHocPhan, MaHocPhan, MSGV, SoBuoi, SoTiet, SoTuanHoc,
+     * ThuTiet, PhongHoc, ThoiGianBatDau, ThoiGianKetThuc, ThoiGianHoc,
+     * SoLuongToiDa, TrangThaiLopHocPhan
      */
-    public void suaLopHocPhan(String maLopHocPhan, String tenLopHocPhan, String maHocPhan, String msgv, String thoiGian,
-            Integer soBuoi, String phongHoc) {
+    public void suaLopHocPhan(String maLopHocPhan, String tenLopHocPhan, String maHocPhan, String msgv,
+            Integer soBuoi, Integer soTiet, String soTuanHoc, String thuTiet, String phongHoc, String thoiGianBatDau,
+            String thoiGianKetThuc, String thoiGianHoc, Integer soLuongToiDa, String trangThaiLopHocPhan) {
         ql.ChayLenhSQL("UPDATE tblLopHocPhan SET TenLopHocPhan='" + tenLopHocPhan + "', MaHocPhan='" + maHocPhan
-                + "', MSGV='" + msgv + "', ThoiGian='" + thoiGian + "', SoBuoi=" + (soBuoi == null ? "NULL" : soBuoi)
-                + ", PhongHoc='" + phongHoc + "' WHERE MaLopHocPhan='" + maLopHocPhan + "';");
+                + "', MSGV='" + msgv + "', SoBuoi=" + (soBuoi == null ? "NULL" : soBuoi) + ", SoTiet="
+                + (soTiet == null ? "NULL" : soTiet)
+                + ", SoTuanHoc='" + (soTuanHoc == null ? "" : soTuanHoc) + "', ThuTiet='"
+                + (thuTiet == null ? "" : thuTiet) + "', PhongHoc='" + (phongHoc == null ? "" : phongHoc)
+                + "', ThoiGianBatDau='" + (thoiGianBatDau == null ? "" : thoiGianBatDau) + "', ThoiGianKetThuc='"
+                + (thoiGianKetThuc == null ? "" : thoiGianKetThuc)
+                + "', ThoiGianHoc='" + (thoiGianHoc == null ? "" : thoiGianHoc) + "', SoLuongToiDa="
+                + (soLuongToiDa == null ? "NULL" : soLuongToiDa)
+                + ", TrangThaiLopHocPhan='" + (trangThaiLopHocPhan == null ? "" : trangThaiLopHocPhan)
+                + "' WHERE MaLopHocPhan='" + maLopHocPhan + "';");
     }
 
     // =========================
     // Chức năng Học phần
     // =========================
 
-    public void themHocPhan(String maHocPhan, String tenHocPhan, Integer soTinChi, String maNganh, String moTaHocPhan) {
-        ql.ChayLenhSQL("INSERT INTO tblHocPhan (MaHocPhan, TenHocPhan, SoTinChi, MaNganh, MoTaHocPhan) VALUES ('" +
-                maHocPhan + "', '" + tenHocPhan + "', " + (soTinChi == null ? "NULL" : soTinChi) + ", '" + maNganh
-                + "', '"
+    public void themHocPhan(String maHocPhan, String tenHocPhan, Integer hocKy, Integer soTinChi, String maNganh,
+            String moTaHocPhan) {
+        ql.ChayLenhSQL("INSERT INTO tblHocPhan (MaHocPhan, TenHocPhan,HocKy, SoTinChi, MaNganh, MoTaHocPhan) VALUES ('"
+                + maHocPhan
+                + "', '" + tenHocPhan
+                + "', " + hocKy
+                + ", " + (soTinChi == null ? "NULL" : soTinChi)
+                + ", '" + maNganh + "', '"
                 + moTaHocPhan + "');");
     }
 
-    public void suaHocPhan(String maHocPhanCanSua, String tenHocPhan, Integer soTinChi, String maNganh,
+    public void suaHocPhan(String maHocPhanCanSua, String tenHocPhan, Integer hocKy, Integer soTinChi, String maNganh,
             String moTaHocPhan) {
-        ql.ChayLenhSQL("UPDATE tblHocPhan SET TenHocPhan='" + tenHocPhan + "', SoTinChi="
-                + (soTinChi == null ? "NULL" : soTinChi)
-                + ", MaNganh='" + maNganh + "', MoTaHocPhan='" + moTaHocPhan + "' WHERE MaHocPhan='" + maHocPhanCanSua
+        ql.ChayLenhSQL("UPDATE tblHocPhan SET TenHocPhan='" + tenHocPhan
+                + "', HocKy=" + (hocKy == null ? "NULL" : hocKy)
+                + ", SoTinChi=" + (soTinChi == null ? "NULL" : soTinChi)
+                + ", MaNganh='" + maNganh
+                + "', MoTaHocPhan='" + moTaHocPhan
+                + "' WHERE MaHocPhan='" + maHocPhanCanSua
                 + "';");
     }
 
@@ -232,67 +271,117 @@ public class ChucNangSQL {
     // Chức năng Đăng ký học phần
     // =========================
 
-    public void themDangKyHocPhan(String mssv, String maLopHocPhan, String trangThai) {
-        ql.ChayLenhSQL("INSERT INTO tblDangKyHocPhan (MSSV, MaLopHocPhan, TrangThai) VALUES ('" + mssv + "', '"
-                + maLopHocPhan + "', '" + (trangThai == null ? "" : trangThai) + "');");
+    /**
+     * Thêm đăng ký học phần mới vào hệ thống.
+     * SQL: INSERT INTO tblDangKyHocPhan (...)
+     * Các trường: MaDangKyHocPhan, MSSV, MaLopHocPhan, TrangThaiDangKyHocPhan
+     */
+    public void themDangKyHocPhan(String maDangKyHocPhan, String mssv, String maLopHocPhan,
+            String trangThaiDangKyHocPhan) {
+        ql.ChayLenhSQL(
+                "INSERT INTO tblDangKyHocPhan (MaDangKyHocPhan, MSSV, MaLopHocPhan, TrangThaiDangKyHocPhan) VALUES ('"
+                        + maDangKyHocPhan + "', '" + mssv + "', '" + maLopHocPhan + "', '"
+                        + (trangThaiDangKyHocPhan == null ? "" : trangThaiDangKyHocPhan) + "');");
     }
 
-    public void suaDangKyHocPhan(String idDangKy, String mssv, String maLopHocPhan, String trangThai) {
-        ql.ChayLenhSQL(
-                "UPDATE tblDangKyHocPhan SET MSSV='" + mssv + "', MaLopHocPhan='" + maLopHocPhan + "', TrangThai='"
-                        + (trangThai == null ? "" : trangThai) + "' WHERE IDDangKyHocPhan=" + idDangKy + ";");
+    /**
+     * Sửa thông tin đăng ký học phần.
+     * SQL: UPDATE tblDangKyHocPhan SET ... WHERE MaDangKyHocPhan='...'
+     * Các trường: MSSV, MaLopHocPhan, TrangThaiDangKyHocPhan
+     */
+    public void suaDangKyHocPhan(String maDangKyHocPhan, String mssv, String maLopHocPhan,
+            String trangThaiDangKyHocPhan) {
+        ql.ChayLenhSQL("UPDATE tblDangKyHocPhan SET MSSV='" + mssv + "', MaLopHocPhan='" + maLopHocPhan
+                + "', TrangThaiDangKyHocPhan='"
+                + (trangThaiDangKyHocPhan == null ? "" : trangThaiDangKyHocPhan) + "' WHERE MaDangKyHocPhan='"
+                + maDangKyHocPhan + "';");
     }
 
     // =========================
     // Chức năng Điểm lớp học phần
     // =========================
 
-    public void themDiemLopHocPhan(String mssv, String idDangKyHocPhan, Double diemQuaTrinh, Double diemThi,
-            Double diemTongKet) {
+    /**
+     * Thêm điểm lớp học phần mới vào hệ thống.
+     * SQL: INSERT INTO tblDiemLopHocPhan (...)
+     * Các trường: MaDiemLopHocPhan, MaDangKyHocPhan, DiemQuaTrinh, DiemThi,
+     * DiemTongKet, XepLoai
+     */
+    public void themDiemLopHocPhan(String maDiemLopHocPhan, String maDangKyHocPhan, Double diemQuaTrinh, Double diemThi,
+            Double diemTongKet, String xepLoai) {
         ql.ChayLenhSQL(
-                "INSERT INTO tblDiemLopHocPhan (MSSV, IDDangKyHocPhan, DiemQuaTrinh, DiemThi, DiemTongKet) VALUES ('" +
-                        mssv + "', " + (idDangKyHocPhan == null ? "NULL" : idDangKyHocPhan) + ", "
-                        + (diemQuaTrinh == null ? "NULL" : diemQuaTrinh) + ", " + (diemThi == null ? "NULL" : diemThi)
-                        + ", " + (diemTongKet == null ? "NULL" : diemTongKet) + ");");
+                "INSERT INTO tblDiemLopHocPhan (MaDiemLopHocPhan, MaDangKyHocPhan, DiemQuaTrinh, DiemThi, DiemTongKet, XepLoai) VALUES ('"
+                        + maDiemLopHocPhan + "', '" + maDangKyHocPhan + "', "
+                        + (diemQuaTrinh == null ? "NULL" : diemQuaTrinh) + ", "
+                        + (diemThi == null ? "NULL" : diemThi) + ", "
+                        + (diemTongKet == null ? "NULL" : diemTongKet) + ", '" + (xepLoai == null ? "" : xepLoai)
+                        + "');");
     }
 
-    public void suaDiemLopHocPhan(String idDiem, String mssv, String idDangKyHocPhan, Double diemQuaTrinh,
-            Double diemThi, Double diemTongKet) {
-        ql.ChayLenhSQL("UPDATE tblDiemLopHocPhan SET MSSV='" + mssv + "', IDDangKyHocPhan="
-                + (idDangKyHocPhan == null ? "NULL" : idDangKyHocPhan) + ", DiemQuaTrinh="
+    /**
+     * Sửa thông tin điểm lớp học phần.
+     * SQL: UPDATE tblDiemLopHocPhan SET ... WHERE MaDiemLopHocPhan='...'
+     * Các trường: MaDangKyHocPhan, DiemQuaTrinh, DiemThi, DiemTongKet, XepLoai
+     */
+    public void suaDiemLopHocPhan(String maDiemLopHocPhan, String maDangKyHocPhan, Double diemQuaTrinh, Double diemThi,
+            Double diemTongKet, String xepLoai) {
+        ql.ChayLenhSQL("UPDATE tblDiemLopHocPhan SET MaDangKyHocPhan='" + maDangKyHocPhan + "', DiemQuaTrinh="
                 + (diemQuaTrinh == null ? "NULL" : diemQuaTrinh) + ", DiemThi=" + (diemThi == null ? "NULL" : diemThi)
-                + ", DiemTongKet=" + (diemTongKet == null ? "NULL" : diemTongKet) + " WHERE IDDiemLopHocPhan=" + idDiem
-                + ";");
+                + ", DiemTongKet=" + (diemTongKet == null ? "NULL" : diemTongKet) + ", XepLoai='"
+                + (xepLoai == null ? "" : xepLoai)
+                + "' WHERE MaDiemLopHocPhan='" + maDiemLopHocPhan + "';");
     }
 
     // =========================
     // Chức năng Điểm danh
     // =========================
 
-    public void themDiemDanh(String mssv, String idLopHocPhan, String chuoiDiemDanh, String ghiChu) {
-        ql.ChayLenhSQL("INSERT INTO tblDiemDanh (MSSV, IDLopHocPhan, ChuoiDiemDanh, GhiChu) VALUES ('" + mssv + "', "
-                + (idLopHocPhan == null ? "NULL" : idLopHocPhan) + ", '" + (chuoiDiemDanh == null ? "" : chuoiDiemDanh)
-                + "', '" + (ghiChu == null ? "" : ghiChu) + "');");
+    /**
+     * Thêm điểm danh mới vào hệ thống.
+     * SQL: INSERT INTO tblDiemDanh (...)
+     * Các trường: MaDiemDanh, MaDangKyHocPhan, ChuoiDiemDanh, GhiChu
+     */
+    public void themDiemDanh(String maDiemDanh, String maDangKyHocPhan, String chuoiDiemDanh, String ghiChu) {
+        ql.ChayLenhSQL("INSERT INTO tblDiemDanh (MaDiemDanh, MaDangKyHocPhan, ChuoiDiemDanh, GhiChu) VALUES ('"
+                + maDiemDanh + "', '" + maDangKyHocPhan + "', '" + (chuoiDiemDanh == null ? "" : chuoiDiemDanh) + "', '"
+                + (ghiChu == null ? "" : ghiChu) + "');");
     }
 
-    public void suaDiemDanh(String idDiemDanh, String mssv, String idLopHocPhan, String chuoiDiemDanh, String ghiChu) {
-        ql.ChayLenhSQL("UPDATE tblDiemDanh SET MSSV='" + mssv + "', IDLopHocPhan="
-                + (idLopHocPhan == null ? "NULL" : idLopHocPhan) + ", ChuoiDiemDanh='"
+    /**
+     * Sửa thông tin điểm danh.
+     * SQL: UPDATE tblDiemDanh SET ... WHERE MaDiemDanh='...'
+     * Các trường: MaDangKyHocPhan, ChuoiDiemDanh, GhiChu
+     */
+    public void suaDiemDanh(String maDiemDanh, String maDangKyHocPhan, String chuoiDiemDanh, String ghiChu) {
+        ql.ChayLenhSQL("UPDATE tblDiemDanh SET MaDangKyHocPhan='" + maDangKyHocPhan + "', ChuoiDiemDanh='"
                 + (chuoiDiemDanh == null ? "" : chuoiDiemDanh) + "', GhiChu='" + (ghiChu == null ? "" : ghiChu)
-                + "' WHERE IDDiemDanh=" + idDiemDanh + ";");
+                + "' WHERE MaDiemDanh='" + maDiemDanh + "';");
     }
 
     // =========================
     // Chức năng Tài khoản
     // =========================
 
-    public void themTaiKhoan(String maNguoiDung, String matKhau, String chucVu) {
-        ql.ChayLenhSQL("INSERT INTO tblTaiKhoan (MaNguoiDung, MatKhau, ChucVu) VALUES ('" + maNguoiDung + "', '"
-                + matKhau + "', '" + (chucVu == null ? "" : chucVu) + "');");
+    /**
+     * Thêm tài khoản mới vào hệ thống.
+     * SQL: INSERT INTO tblTaiKhoan (...)
+     * Các trường: MaNguoiDung, MatKhau, ChucVu, TrangThaiTaiKhoan
+     */
+    public void themTaiKhoan(String maNguoiDung, String matKhau, String chucVu, String trangThaiTaiKhoan) {
+        ql.ChayLenhSQL("INSERT INTO tblTaiKhoan (MaNguoiDung, MatKhau, ChucVu, TrangThaiTaiKhoan) VALUES ('"
+                + maNguoiDung + "', '"
+                + matKhau + "', '" + (chucVu == null ? "" : chucVu) + "', '"
+                + (trangThaiTaiKhoan == null ? "" : trangThaiTaiKhoan) + "');");
     }
 
-    public void suaTaiKhoan(String maNguoiDung, String matKhau, String chucVu) {
+    /**
+     * Sửa thông tin tài khoản.
+     * SQL: UPDATE tblTaiKhoan SET ... WHERE MaNguoiDung='...'
+     * Các trường: MatKhau, ChucVu, TrangThaiTaiKhoan
+     */
+    public void suaTaiKhoan(String maNguoiDung, String matKhau, String chucVu, String trangThaiTaiKhoan) {
         ql.ChayLenhSQL("UPDATE tblTaiKhoan SET MatKhau='" + matKhau + "', ChucVu='" + (chucVu == null ? "" : chucVu)
+                + "', TrangThaiTaiKhoan='" + (trangThaiTaiKhoan == null ? "" : trangThaiTaiKhoan)
                 + "' WHERE MaNguoiDung='" + maNguoiDung + "';");
     }
 

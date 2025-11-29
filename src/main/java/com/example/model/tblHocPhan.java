@@ -12,15 +12,18 @@ public class tblHocPhan {
     public Integer soTinChi;
     public String maNganh;
     public String moTaHocPhan;
+    public Integer hocKy;
     public HttpServletRequest request;
     public Boolean bao_loi = false;
 
     public tblHocPhan() {
     }
 
-    public tblHocPhan(String maHocPhan, String tenHocPhan, Integer soTinChi, String maNganh, String moTaHocPhan) {
+    public tblHocPhan(String maHocPhan, String tenHocPhan, Integer soTinChi, String maNganh, String moTaHocPhan,
+            Integer hocKy) {
         this.maHocPhan = maHocPhan;
         this.tenHocPhan = tenHocPhan;
+        this.hocKy = hocKy;
         this.soTinChi = soTinChi;
         this.maNganh = maNganh;
         this.moTaHocPhan = moTaHocPhan;
@@ -31,19 +34,19 @@ public class tblHocPhan {
     }
 
     public void them() {
-        sql.themHocPhan(maHocPhan, tenHocPhan, soTinChi, maNganh, moTaHocPhan);
+        sql.themHocPhan(maHocPhan, tenHocPhan, hocKy, soTinChi, maNganh, moTaHocPhan);
     }
 
     public void them(tblHocPhan h) {
-        sql.themHocPhan(h.maHocPhan, h.tenHocPhan, h.soTinChi, h.maNganh, h.moTaHocPhan);
+        sql.themHocPhan(h.maHocPhan, h.tenHocPhan, h.hocKy, h.soTinChi, h.maNganh, h.moTaHocPhan);
     }
 
     public void sua() {
-        sql.suaHocPhan(maHocPhan, tenHocPhan, soTinChi, maNganh, moTaHocPhan);
+        sql.suaHocPhan(maHocPhan, tenHocPhan, hocKy, soTinChi, maNganh, moTaHocPhan);
     }
 
     public void sua(tblHocPhan h) {
-        sql.suaHocPhan(h.maHocPhan, h.tenHocPhan, h.soTinChi, h.maNganh, h.moTaHocPhan);
+        sql.suaHocPhan(h.maHocPhan, h.tenHocPhan, h.hocKy, h.soTinChi, h.maNganh, h.moTaHocPhan);
     }
 
     public void xoa() {
@@ -58,6 +61,7 @@ public class tblHocPhan {
         this.moTaHocPhan = sql.timKiem("MoTaHocPhan", "tblHocPhan", "MaHocPhan = '" + ma + "'");
     }
 
+    // *set
     public void setMaHocPhan(String ma) {
         if (sql.kiemTraKhoaChinh("tblHocPhan", "MaHocPhan", ma)) {
             request.setAttribute("loiMaHocPhan", "Mã học phần đã tồn tại");
@@ -79,12 +83,47 @@ public class tblHocPhan {
         }
     }
 
+    public void setSoTinChi(Integer soTinChi) {
+        if (soTinChi == null || soTinChi <= 0) {
+            request.setAttribute("loiSoTinChi", "Số tín chỉ phải là số dương");
+            bao_loi = true;
+        } else {
+            this.soTinChi = soTinChi;
+        }
+    }
+
+    public void setHocKy(Integer hocKy) {
+        if (hocKy == null || hocKy <= 0) {
+            request.setAttribute("loiHocKy", "Học kỳ phải là số dương");
+            bao_loi = true;
+        } else {
+            this.hocKy = hocKy;
+        }
+    }
+
+    public void setMaNganh(String maNganh) {
+        if (maNganh == null || maNganh.trim().isEmpty()) {
+            request.setAttribute("loiMaNganh", "Mã ngành không được để trống");
+            bao_loi = true;
+        } else {
+            this.maNganh = maNganh;
+        }
+    }
+
+    // *get
     public String getTenNganh() {
         String tenNganh = sql.timKiem("TenNganh", "tblNganh", "MaNganh = '" + this.maNganh + "'");
         if (tenNganh == null) {
             tenNganh = "";
         }
         return tenNganh;
+    }
+
+    // * Lay tong the */
+    public String getTblNganh(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblNganh",
+                "MaNganh = (SELECT MaNganh FROM tblHocPhan WHERE MaHocPhan = '" + maHocPhan + "')");
+        return kq;
     }
 
 }

@@ -56,6 +56,7 @@ public class tblLop {
         this.maNganh = sql.timKiem("MaNganh", "tblLop", "MaLop = '" + ma + "'");
     }
 
+    // *set
     public void setMaLop(String maLop) {
         if (sql.kiemTraKhoaChinh("tblLop", "MaLop", maLop)) {
             request.setAttribute("loiMaLop", "Mã lớp đã tồn tại");
@@ -77,8 +78,34 @@ public class tblLop {
         }
     }
 
-    // !TODO Chua xong
-    public String getMaNganh() {
-        return maNganh;
+    public void setKhoaHoc(Integer khoaHoc) {
+        if (khoaHoc == null || khoaHoc <= 0) {
+            request.setAttribute("loiKhoaHoc", "Khóa học không được để trống hoặc nhỏ hơn bằng 0");
+            bao_loi = true;
+        } else {
+            this.khoaHoc = khoaHoc;
+        }
+    }
+
+    public void setMaNganh(String maNganh) {
+        if (maNganh == null || maNganh.trim().isEmpty()) {
+            request.setAttribute("loiMaNganh", "Mã ngành không được để trống");
+            bao_loi = true;
+        } else {
+            this.maNganh = maNganh;
+        }
+    }
+
+    // *get
+    public String getTenNganh() {
+        String tenNganh = sql.timKiem("TenNganh", "tblNganh", "MaNganh = '" + this.maNganh + "'");
+        return tenNganh;
+    }
+
+    // * Lay tong the
+    public String getTblNganh(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblNganh",
+                "MaNganh = (SELECT MaNganh FROM tblLop WHERE MaLop = '" + maLop + "')");
+        return kq;
     }
 }

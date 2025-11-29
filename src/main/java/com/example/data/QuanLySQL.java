@@ -26,7 +26,7 @@ public class QuanLySQL {
                 throw new RuntimeException("Lỗi thực thi SQL", e);
             }
         } catch (ClassNotFoundException e) {
-            System.err.println("Không tìm thấy SQLite JDBC driver");
+            // System.err.println("Không tìm thấy SQLite JDBC driver");
             throw new RuntimeException("Không tìm thấy SQLite JDBC driver", e);
         }
     }

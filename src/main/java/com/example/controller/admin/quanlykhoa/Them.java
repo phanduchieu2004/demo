@@ -63,7 +63,9 @@ public class Them extends HttpServlet {
             req.getRequestDispatcher("/admin/danhsachkhoa/them.jsp").forward(req, resp);
             return;
         }
-        sql.themKhoa(maKhoa, tenKhoa, maVien, tenTruongKhoa, soDienThoaiKhoa, emailKhoa, ngayThanhLapKhoa, moTaKhoa);
+
+        // sql.themKhoa(maKhoa, tenKhoa, maVien, tenTruongKhoa, soDienThoaiKhoa,
+        // emailKhoa, ngayThanhLapKhoa, moTaKhoa);
         req.getSession().setAttribute("thongBao", "Thêm khoa thành công");
         resp.sendRedirect(req.getContextPath() + "/admin/danhsachkhoa/index");
     }

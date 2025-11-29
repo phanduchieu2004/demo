@@ -78,6 +78,7 @@ public class tblGiangVien {
         this.trangThaiGV = sql.timKiem("TrangThaiGV", "tblGiangVien", "MSGV = '" + id + "'");
     }
 
+    // *set */
     public void setMSGV(String msgv) {
         if (sql.kiemTraKhoaChinh("tblGiangVien", "MSGV", msgv)) {
             request.setAttribute("loiMSGV", "Mã giảng viên đã tồn tại");
@@ -99,9 +100,88 @@ public class tblGiangVien {
         }
     }
 
-    // !TODO Chua xong
-    public String getMaNganh() {
-        return maNganh;
+    public void setNgaySinhGV(String ngaySinh) {
+        if (ngaySinh == null || ngaySinh.trim().isEmpty()) {
+            request.setAttribute("loiNgaySinhGV", "Ngày sinh không được để trống");
+            bao_loi = true;
+        } else {
+            this.ngaySinhGV = ngaySinh;
+        }
+    }
+
+    public void setGioiTinhGV(String gioiTinh) {
+        if (gioiTinh == null || gioiTinh.trim().isEmpty()) {
+            request.setAttribute("loiGioiTinhGV", "Giới tính giảng viên không được để trống");
+            bao_loi = true;
+        } else {
+            this.gioiTinhGV = gioiTinh;
+        }
+    }
+
+    public void setEmailGV(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("loiEmailGV", "Email không được để trống");
+            bao_loi = true;
+        } else {
+            this.emailGV = email;
+        }
+    }
+
+    public void setQueQuanGV(String queQuan) {
+        if (queQuan == null || queQuan.trim().isEmpty()) {
+            request.setAttribute("loiQueQuanGV", "Quê quán giảng viên không được để trống");
+            bao_loi = true;
+        } else {
+            this.queQuanGV = queQuan;
+        }
+    }
+
+    public void setMaNganh(String maNganh) {
+        if (maNganh == null || maNganh.trim().isEmpty()) {
+            request.setAttribute("loiMaNganh", "Mã ngành không được để trống");
+            bao_loi = true;
+        } else {
+            this.maNganh = maNganh;
+        }
+    }
+
+    public void setSoDienThoaiGV(String soDienThoai) {
+        if (soDienThoai == null || soDienThoai.trim().isEmpty()) {
+            request.setAttribute("loiSoDienThoaiGV", "Số điện thoại không được để trống");
+            bao_loi = true;
+        } else {
+            this.soDienThoaiGV = soDienThoai;
+        }
+    }
+
+    public void setTrangThaiGV(String trangThai) {
+        if (trangThai == null || trangThai.trim().isEmpty()) {
+            request.setAttribute("loiTrangThaiGV", "Trạng thái giảng viên không được để trống");
+            bao_loi = true;
+        } else {
+            this.trangThaiGV = trangThai;
+        }
+    }
+
+    public void setAnhGV(String anh) {
+        if (anh == null || anh.trim().isEmpty()) {
+            this.anhGV = "";
+        } else {
+            this.anhGV = anh;
+        }
+    }
+
+    // *get */
+    public String getTenNganh() {
+        String tenNganh = sql.timKiem("TenNganh", "tblNganh", "MaNganh = '" + this.maNganh + "'");
+        return tenNganh;
+    }
+
+    // * Lay tong the
+    public String getTblNganh(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblNganh",
+                "MaNganh = (SELECT MaNganh FROM tblGiangVien WHERE MSGV = '" + this.msgv + "')");
+        return kq;
     }
 
 }

@@ -78,6 +78,7 @@ public class tblSinhVien {
         this.trangThaiSV = sql.timKiem("TrangThaiSV", "tblSinhVien", "MSSV = '" + id + "'");
     }
 
+    // * set
     public void setMSSV(String mssv) {
         if (sql.kiemTraKhoaChinh("tblSinhVien", "MSSV", mssv)) {
             request.setAttribute("loiMSSV", "MSSV đã tồn tại");
@@ -99,9 +100,86 @@ public class tblSinhVien {
         }
     }
 
-    // !TODO Chua xong
-    public String getMaLop() {
-        return maLop;
+    public void setNgaySinhSV(String ngaySinh) {
+        if (ngaySinh == null || ngaySinh.trim().isEmpty()) {
+            request.setAttribute("loiNgaySinhSV", "Ngày sinh không được để trống");
+            bao_loi = true;
+        } else {
+            this.ngaySinhSV = ngaySinh;
+        }
     }
 
+    public void setGioiTinhSV(String gioiTinh) {
+        if (gioiTinh == null || gioiTinh.trim().isEmpty()) {
+            request.setAttribute("loiGioiTinhSV", "Giới tính không được để trống");
+            bao_loi = true;
+        } else {
+            this.gioiTinhSV = gioiTinh;
+        }
+    }
+
+    public void setQueQuanSV(String queQuan) {
+        if (queQuan == null || queQuan.trim().isEmpty()) {
+            request.setAttribute("loiQueQuanSV", "Quê quán không được để trống");
+            bao_loi = true;
+        } else {
+            this.queQuanSV = queQuan;
+        }
+    }
+
+    public void setEmailSV(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("loiEmailSV", "Email không được để trống");
+            bao_loi = true;
+        } else {
+            this.emailSV = email;
+        }
+    }
+
+    public void setMaLop(String maLop) {
+        if (maLop == null || maLop.trim().isEmpty()) {
+            request.setAttribute("loiMaLop", "Mã lớp không được để trống");
+            bao_loi = true;
+        } else {
+            this.maLop = maLop;
+        }
+    }
+
+    public void setSoDienThoaiSV(String soDienThoai) {
+        if (soDienThoai == null || soDienThoai.trim().isEmpty()) {
+            request.setAttribute("loiSoDienThoaiSV", "Số điện thoại không được để trống");
+            bao_loi = true;
+        } else {
+            this.soDienThoaiSV = soDienThoai;
+        }
+    }
+
+    public void setAnhSV(String anh) {
+        if (anh == null || anh.trim().isEmpty()) {
+            this.anhSV = "";
+        } else {
+            this.anhSV = anh;
+        }
+    }
+
+    public void setTrangThaiSV(String trangThai) {
+        if (trangThai == null || trangThai.trim().isEmpty()) {
+            this.trangThaiSV = "";
+        } else {
+            this.trangThaiSV = trangThai;
+        }
+    }
+
+    // * get */
+    public String getTenLop() {
+        String tenLop = sql.timKiem("TenLop", "tblLop", "MaLop = '" + this.maLop + "'");
+        return tenLop;
+    }
+
+    // * Lay tong the */
+    public String getTblLop(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblLop",
+                "MaLop = (SELECT MaLop FROM tblSinhVien WHERE MSSV = '" + mssv + "')");
+        return kq;
+    }
 }

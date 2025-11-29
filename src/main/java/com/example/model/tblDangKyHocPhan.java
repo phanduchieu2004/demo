@@ -7,11 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class tblDangKyHocPhan {
     ChucNangSQL sql = new ChucNangSQL();
 
-    public String maDangKy;
-    public String maSinhVien;
-    public String maHocPhan;
+    public String maDangKyHocPhan;
+    public String mssv;
     public String maLopHocPhan;
-    public String trangThai;
+    public String trangThaiDangKyHocPhan;
     public HttpServletRequest request;
     public Boolean bao_loi = false;
 
@@ -23,53 +22,90 @@ public class tblDangKyHocPhan {
     }
 
     public void them() {
-        sql.themDangKyHocPhan(maSinhVien, maLopHocPhan, trangThai);
+        sql.themDangKyHocPhan(maDangKyHocPhan, mssv, maLopHocPhan, trangThaiDangKyHocPhan);
     }
 
     public void them(tblDangKyHocPhan d) {
-        sql.themDangKyHocPhan(d.maSinhVien, d.maLopHocPhan, d.trangThai);
+        sql.themDangKyHocPhan(d.maDangKyHocPhan, d.mssv, d.maLopHocPhan, d.trangThaiDangKyHocPhan);
     }
 
     public void sua() {
-        sql.suaDangKyHocPhan(maDangKy, maSinhVien, maLopHocPhan, trangThai);
+        sql.suaDangKyHocPhan(maDangKyHocPhan, mssv, maLopHocPhan, trangThaiDangKyHocPhan);
     }
 
     public void sua(tblDangKyHocPhan d) {
-        sql.suaDangKyHocPhan(d.maDangKy, d.maSinhVien, d.maLopHocPhan, d.trangThai);
+        sql.suaDangKyHocPhan(d.maDangKyHocPhan, d.mssv, d.maLopHocPhan, d.trangThaiDangKyHocPhan);
     }
 
     public void xoa() {
-        sql.xoaBanGhi("tblDangKyHocPhan", "MaDangKy = '" + maDangKy + "'");
+        sql.xoaBanGhi("tblDangKyHocPhan", "MaDangKyHocPhan = '" + maDangKyHocPhan + "'");
     }
 
     public void truyVanTheoMa(String ma) {
-        this.maDangKy = ma;
-        this.maSinhVien = sql.timKiem("MaSinhVien", "tblDangKyHocPhan", "MaDangKy='" + ma + "'");
-        this.maHocPhan = sql.timKiem("MaHocPhan", "tblDangKyHocPhan", "MaDangKy='" + ma + "'");
-        this.maLopHocPhan = sql.timKiem("MaLopHocPhan", "tblDangKyHocPhan", "MaDangKy='" + ma + "'");
-        this.trangThai = sql.timKiem("TrangThai", "tblDangKyHocPhan", "MaDangKy='" + ma + "'");
+        this.maDangKyHocPhan = ma;
+        this.mssv = sql.timKiem("MSSV", "tblDangKyHocPhan", "MaDangKyHocPhan='" + ma + "'");
+        this.maLopHocPhan = sql.timKiem("MaLopHocPhan", "tblDangKyHocPhan", "MaDangKyHocPhan='" + ma + "'");
+        this.trangThaiDangKyHocPhan = sql.timKiem("TrangThaiDangKyHocPhan", "tblDangKyHocPhan",
+                "MaDangKyHocPhan='" + ma + "'");
     }
 
-    public void setMaDangKy(String ma) {
-        if (ma == null || ma.trim().isEmpty()) {
-            request.setAttribute("loiMaDangKy", "Mã đăng ký không được để trống");
+    // *set
+    public void setMaDangKyHocPhan(String ma) {
+        this.maDangKyHocPhan = ma;
+    }
+
+    public void setMSSV(String mssv) {
+        if (mssv == null || mssv.trim().isEmpty()) {
+            request.setAttribute("loiMSSV", "MSSV không được để trống");
             bao_loi = true;
         } else {
-            this.maDangKy = ma;
+            this.mssv = mssv;
         }
     }
 
-    // !TODO Chua xong
-    public String getMaSinhVien() {
-        return maSinhVien;
+    public void setMaLopHocPhan(String maLopHocPhan) {
+        if (maLopHocPhan == null || maLopHocPhan.trim().isEmpty()) {
+            request.setAttribute("loiMaLopHocPhan", "Mã lớp học phần không được để trống");
+            bao_loi = true;
+        } else {
+            this.maLopHocPhan = maLopHocPhan;
+        }
     }
 
-    public String getMaHocPhan() {
-        return maHocPhan;
+    public void setTrangThaiDangKyHocPhan(String trangThai) {
+        if (trangThai == null || trangThai.trim().isEmpty()) {
+            request.setAttribute("loiTrangThaiDangKyHocPhan", "Trạng thái đăng ký học phần không được để trống");
+            bao_loi = true;
+        } else {
+            this.trangThaiDangKyHocPhan = trangThai;
+        }
     }
 
-    public String getMaLopHocPhan() {
-        return maLopHocPhan;
+    // *get
+    public String getHoTenSV() {
+        String hoTenSV = sql.timKiem("HoTen", "tblSinhVien",
+                "MSSV = (SELECT MSSV FROM tblDangKyHocPhan WHERE MaDangKyHocPhan = '" + maDangKyHocPhan + "')");
+        return hoTenSV;
+    }
+
+    public String getTenLopHocPhan() {
+        String tenLopHocPhan = sql.timKiem("TenLopHocPhan", "tblLopHocPhan",
+                "MaLopHocPhan = (SELECT MaLopHocPhan FROM tblDangKyHocPhan WHERE MaDangKyHocPhan = '" + maDangKyHocPhan
+                        + "')");
+        return tenLopHocPhan;
+    }
+
+    // *Lay tong the
+    public String getTblSinhVien(String tenTruongCanLay) {
+        String kq = sql.timKiem(tenTruongCanLay, "tblSinhVien",
+                "MSSV = (SELECT MSSV FROM tblDangKyHocPhan WHERE MaDangKyHocPhan = '" + maDangKyHocPhan + "')");
+        return kq;
+    }
+
+    public String getTblLopHocPhan(String tenTruongCanLay) {
+        return sql.timKiem(tenTruongCanLay, "tblLopHocPhan",
+                "MaLopHocPhan = (SELECT MaLopHocPhan FROM tblDangKyHocPhan WHERE MaDangKyHocPhan = '" + maDangKyHocPhan
+                        + "')");
     }
 
 }

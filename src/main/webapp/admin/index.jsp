@@ -26,12 +26,20 @@ prefix="c" %>
     <main id="main" class="main">
       <!-- Phần thông báo -->
       <c:if test="${not empty thongBao}">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Thông báo:</strong>
+        <div
+          class="alert alert-success alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Thông báo:</strong>
           <c:out value="${thongBao}" />
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-       </div>
-     </c:if>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      </c:if>
 
       <!-- Phần đầu trang -->
       <div class="pagetitle">
@@ -42,8 +50,13 @@ prefix="c" %>
           </ol>
         </nav>
       </div>
+      <form
+        action="${pageContext.request.contextPath}/admin/index"
+        method="post"
+      >
+        <button type="submit">cac</button>
+      </form>
     </main>
-    
 
     <!-- Include footer -->
     <jsp:include page="/WEB-INF/views/giaodien/footer.jsp" />

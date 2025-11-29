@@ -36,7 +36,9 @@ public class Sua extends HttpServlet {
         String emailKhoa = req.getParameter("EmailKhoa");
         String ngayThanhLapKhoa = req.getParameter("NgayThanhLapKhoa");
         String moTaKhoa = req.getParameter("MoTaKhoa");
-        sql.suaKhoa(maKhoa, tenKhoa, maVien, tenTruongKhoa, soDienThoaiKhoa, emailKhoa, ngayThanhLapKhoa, moTaKhoa);
+
+        // sql.suaKhoa(maKhoa, tenKhoa, maVien, tenTruongKhoa, soDienThoaiKhoa,
+        // emailKhoa, ngayThanhLapKhoa, moTaKhoa);
         req.getSession().setAttribute("thongBao", "Sửa khoa thành công");
         resp.sendRedirect(req.getContextPath() + "/admin/danhsachkhoa/index");
     }

@@ -38,7 +38,7 @@ public class Sua extends HttpServlet {
         String maKhoa = req.getParameter("MaKhoa");
         String moTaNganh = req.getParameter("MoTaNganh");
 
-        sql.suaNganh(maNganh, tenNganh, maKhoa, moTaNganh);
+        // sql.suaNganh(maNganh, tenNganh, maKhoa, moTaNganh);
         req.getSession().setAttribute("thongBao", "Sửa ngành thành công");
         resp.sendRedirect(req.getContextPath() + "/admin/danhsachnganh/index");
     }

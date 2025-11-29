@@ -7,11 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class tblTaiKhoan {
     ChucNangSQL sql = new ChucNangSQL();
 
-    public String maTaiKhoan;
-    public String tenDangNhap;
+    public String maNguoiDung;
     public String matKhau;
-    public String vaiTro;
-    public String maSinhVien; // optional link to student
+    public String chucVu;
+    public String trangThaiTaiKhoan;
     public HttpServletRequest request;
     public Boolean bao_loi = false;
 
@@ -23,42 +22,41 @@ public class tblTaiKhoan {
     }
 
     public void them() {
-        // Use TenDangNhap as MaNguoiDung in DB
-        sql.themTaiKhoan(tenDangNhap, matKhau, vaiTro);
+        sql.themTaiKhoan(maNguoiDung, matKhau, chucVu, trangThaiTaiKhoan);
     }
 
     public void them(tblTaiKhoan t) {
-        sql.themTaiKhoan(t.tenDangNhap, t.matKhau, t.vaiTro);
+        sql.themTaiKhoan(t.maNguoiDung, t.matKhau, t.chucVu, t.trangThaiTaiKhoan);
     }
 
     public void sua() {
-        sql.suaTaiKhoan(tenDangNhap, matKhau, vaiTro);
+        sql.suaTaiKhoan(maNguoiDung, matKhau, chucVu, trangThaiTaiKhoan);
     }
 
     public void sua(tblTaiKhoan t) {
-        sql.suaTaiKhoan(t.tenDangNhap, t.matKhau, t.vaiTro);
+        sql.suaTaiKhoan(t.maNguoiDung, t.matKhau, t.chucVu, t.trangThaiTaiKhoan);
     }
 
     public void xoa() {
-        sql.xoaBanGhi("tblTaiKhoan", "MaTaiKhoan = '" + maTaiKhoan + "'");
+        sql.xoaBanGhi("tblTaiKhoan", "MaNguoiDung = '" + maNguoiDung + "'");
     }
 
     public void truyVanTheoMa(String ma) {
-        this.maTaiKhoan = ma;
-        this.tenDangNhap = sql.timKiem("MaNguoiDung", "tblTaiKhoan", "MaNguoiDung='" + ma + "'");
+        this.maNguoiDung = ma;
         this.matKhau = sql.timKiem("MatKhau", "tblTaiKhoan", "MaNguoiDung='" + ma + "'");
-        this.vaiTro = sql.timKiem("ChucVu", "tblTaiKhoan", "MaNguoiDung='" + ma + "'");
-        this.maSinhVien = null;
+        this.chucVu = sql.timKiem("ChucVu", "tblTaiKhoan", "MaNguoiDung='" + ma + "'");
+        this.trangThaiTaiKhoan = sql.timKiem("TrangThaiTaiKhoan", "tblTaiKhoan", "MaNguoiDung='" + ma + "'");
     }
 
-    public void setMaTaiKhoan(String ma) {
+    public void setMaNguoiDung(String ma) {
         if (ma == null || ma.trim().isEmpty()) {
-            request.setAttribute("loiMaTaiKhoan", "Mã tài khoản không được để trống");
+            request.setAttribute("loiMaNguoiDung", "Mã người dùng không được để trống");
             bao_loi = true;
         } else {
-            this.maTaiKhoan = ma;
+            this.maNguoiDung = ma;
         }
     }
-    // !TODO thieu
+    // !TODO thieu tim ma nguoi dung theo chuc vu
+    // public void get
 
 }
