@@ -9,11 +9,13 @@ import com.example.model.tblGiangVien;
 import com.example.model.tblNganh;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.Part;
+@MultipartConfig
 @WebServlet({ "/admin/danhsachgiangvien/sua" })
 public class Sua extends HttpServlet {
 
@@ -36,6 +38,7 @@ public class Sua extends HttpServlet {
                 }
 
                 req.setAttribute("gv", danhSach.get(0));
+        req.setAttribute("danhSachNganh", sql.hienThi("tblNganh"));
 
                 req.getRequestDispatcher("/admin/danhsachgiangvien/sua.jsp")
                                 .forward(req, resp);
@@ -52,12 +55,13 @@ public class Sua extends HttpServlet {
     final String emailGV = req.getParameter("EmailGV").trim();
     final String maNganh = req.getParameter("MaNganh").trim();
     final String soDienThoaiGV = req.getParameter("SoDienThoaiGV").trim();
-    final String anhGV = req.getParameter("AnhGV").trim();
+   Part fileAnh = req.getPart("AnhGV");
     final String trangThaiGV = req.getParameter("TrangThaiGV").trim();
                 
                 tblGiangVien gv = new tblGiangVien(msgv, hoTenGV, ngaySinhGV,
                                    gioiTinhGV, queQuanGV, emailGV,
-                                   maNganh, soDienThoaiGV, anhGV, trangThaiGV);
+                                   maNganh, soDienThoaiGV, fileAnh.getSubmittedFileName(), trangThaiGV);
+             sql.themFile(fileAnh, req.getServletContext());
 gv.sua(gv);
 
                 req.getSession().setAttribute("thongBao", "Sửa viện thành công");

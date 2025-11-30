@@ -43,7 +43,7 @@ prefix="c" %>
 
       <!-- Phần đầu trang -->
       <div class="pagetitle">
-        <h1>Quản lý viện</h1>
+        <h1>Quản lý giảng viên</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item">Trang chủ</li>
@@ -162,11 +162,13 @@ prefix="c" %>
                                                     scope="row">
                                                     <c:out
                                                         value="${gv.SoDienThoaiGV}" />
-                                                    <td class="col text-center"
-                                                        scope="row">
-                                                        <c:out
-                                                            value="${gv.AnhGV}" />
-                                                    </td>
+                                                   <td class="col text-center" scope="row">
+                          <img
+                            src="${pageContext.request.contextPath}/static/uploads/${gv.AnhGV}"
+                            alt="${gv.AnhGV}"
+                            style="width: 60px; height: 70px; object-fit: cover"
+                          />
+                        </td>
                                                     <td class="col text-center"
                                                         scope="row">
                                                         <c:out

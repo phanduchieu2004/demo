@@ -40,8 +40,8 @@ prefix="c" %>
       <div class="container shadow p-4">
        <form
   action="${pageContext.request.contextPath}/admin/danhsachgiangvien/sua"
-  method="post"
->
+  method="post" enctype="multipart/form-data">
+
   <div class="row">
     <div class="form-group col-md-6 mb-3">
       <label>Mã giảng viên</label>
@@ -92,12 +92,24 @@ prefix="c" %>
     </div>
 
     <div class="form-group col-md-6 mb-3">
-      <label>Mã ngành</label>
-      <input type="text" class="form-control" name="MaNganh" value="${gv.MaNganh}" />
-      <c:if test="${not empty loiMaNganh}">
-        <small class="text-danger">${loiMaNganh}</small>
-      </c:if>
-    </div>
+  <label>Ngành học</label>
+<select class="form-control" name="MaNganh">
+  <c:forEach var="nganh" items="${danhSachNganh}">
+    
+    <option value="${nganh.MaNganh}"
+      <c:if test="${MaNganh == nganh.MaNganh}">selected</c:if>>
+      ${nganh.TenNganh}
+    </option>
+  </c:forEach>
+</select>
+<c:if test="${not empty loiMaNganh}">
+  <small class="text-danger">${loiMaNganh}</small>
+</c:if>
+
+
+
+
+</div>
 
     <div class="form-group col-md-6 mb-3">
       <label>Số điện thoại</label>
@@ -107,13 +119,11 @@ prefix="c" %>
       </c:if>
     </div>
 
-    <div class="form-group col-md-6 mb-3">
-      <label>Ảnh</label>
-      <input type="text" class="form-control" name="AnhGV" value="${gv.AnhGV}" />
-      <c:if test="${not empty loiAnhGV}">
-        <small class="text-danger">${loiAnhGV}</small>
-      </c:if>
-    </div>
+     <div class="form-group col-md-6 mb-3">
+              <label>Ảnh giảng viên</label>
+              <input type="file" class="form-control" name="AnhGV" id="AnhGV" accept="image/*"/>
+              <c:if test="${not empty loiAnhGV}"><small class="text-danger">${loiAnhGV}</small></c:if>
+          </div>
 
     <div class="form-group col-md-6 mb-3">
       <label>Trạng thái</label>

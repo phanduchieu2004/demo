@@ -1,18 +1,19 @@
 package com.example.controller.admin.quanlygiangvien;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.example.data.ChucNangSQL;
 import com.example.model.tblGiangVien;
-import com.example.model.tblNganh; // giả sử bạn có model ngành
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
+@MultipartConfig
 @WebServlet({ "/admin/danhsachgiangvien/them" })
 public class Them extends HttpServlet {
 
@@ -23,10 +24,8 @@ public class Them extends HttpServlet {
             HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // Lấy danh sách ngành từ DB
-       var  listNganh = sql.hienThi("tblNganh");
-        req.setAttribute("listNganh", listNganh);
-
+        // Lấy danh sách ngành để hiển thị trong form
+        req.setAttribute("danhSachNganh", sql.hienThi("tblNganh"));
         req.getRequestDispatcher("/admin/danhsachgiangvien/them.jsp").forward(req, resp);
     }
 
@@ -35,50 +34,53 @@ public class Them extends HttpServlet {
             HttpServletResponse resp)
             throws ServletException, IOException {
 
-        final String MSGV = req.getParameter("MSGV").trim();
-        final String HoTenGV = req.getParameter("HoTenGV").trim();
-        final String NgaySinhGV = req.getParameter("NgaySinhGV").trim();
-        final String GioiTinhGV = req.getParameter("GioiTinhGV").trim();
-        final String QueQuanGV = req.getParameter("QueQuanGV").trim();
-        final String EmailGV = req.getParameter("EmailGV").trim();
-        final String MaNganh = req.getParameter("MaNganh").trim();
-        final String SoDienThoaiGV = req.getParameter("SoDienThoaiGV").trim();
-        final String AnhGV = req.getParameter("AnhGV").trim();
-        final String TrangThaiGV = req.getParameter("TrangThaiGV").trim();
+        final String msgv = req.getParameter("MSGV").trim();
+        final String hoTenGV = req.getParameter("HoTenGV").trim();
+        final String ngaySinhGV = req.getParameter("NgaySinhGV").trim();
+        final String gioiTinhGV = req.getParameter("GioiTinhGV").trim();
+        final String queQuanGV = req.getParameter("QueQuanGV").trim();
+        final String emailGV = req.getParameter("EmailGV").trim();
+        final String maNganh = req.getParameter("MaNganh").trim();
+        final String soDienThoaiGV = req.getParameter("SoDienThoaiGV").trim();
+        final String trangThaiGV = req.getParameter("TrangThaiGV").trim();
 
-        tblGiangVien gv = new tblGiangVien();
-        gv.setMSGV(MSGV);
-        gv.setHoTenGV(HoTenGV);
-        gv.setNgaySinhGV(NgaySinhGV);
-        gv.setGioiTinhGV(GioiTinhGV);
-        gv.setQueQuanGV(QueQuanGV);
-        gv.setEmailGV(EmailGV);
-        gv.setMaNganh(MaNganh);
-        gv.setSoDienThoaiGV(SoDienThoaiGV);
-        gv.setAnhGV(AnhGV);
-        gv.setTrangThaiGV(TrangThaiGV);
+        Part fileAnh = req.getPart("AnhGV");
 
+        tblGiangVien gv = new tblGiangVien(req);
+        gv.setMSGV(msgv);
+        gv.setHoTenGV(hoTenGV);
+        gv.setNgaySinhGV(ngaySinhGV);
+        gv.setGioiTinhGV(gioiTinhGV);
+        gv.setQueQuanGV(queQuanGV);
+        gv.setEmailGV(emailGV);
+        gv.setMaNganh(maNganh);
+        gv.setSoDienThoaiGV(soDienThoaiGV);
+        gv.setTrangThaiGV(trangThaiGV);
+        gv.setAnhGV(fileAnh != null ? fileAnh.getSubmittedFileName() : null);
+            
+        // Kiểm tra dữ liệu
         if (gv.bao_loi) {
-            // giữ lại dữ liệu nhập và danh sách ngành để hiển thị lại form
-            req.setAttribute("MSGV", MSGV);
-            req.setAttribute("HoTenGV", HoTenGV);
-            req.setAttribute("NgaySinhGV", NgaySinhGV);
-            req.setAttribute("GioiTinhGV", GioiTinhGV);
-            req.setAttribute("QueQuanGV", QueQuanGV);
-            req.setAttribute("EmailGV", EmailGV);
-            req.setAttribute("MaNganh", MaNganh);
-            req.setAttribute("SoDienThoaiGV", SoDienThoaiGV);
-            req.setAttribute("AnhGV", AnhGV);
-            req.setAttribute("TrangThaiGV", TrangThaiGV);
+            req.setAttribute("MSGV", msgv);
+            req.setAttribute("HoTenGV", hoTenGV);
+            req.setAttribute("NgaySinhGV", ngaySinhGV);
+            req.setAttribute("GioiTinhGV", gioiTinhGV);
+            req.setAttribute("QueQuanGV", queQuanGV);
+            req.setAttribute("EmailGV", emailGV);
+            req.setAttribute("MaNganh", maNganh);
+            req.setAttribute("SoDienThoaiGV", soDienThoaiGV);
+            req.setAttribute("TrangThaiGV", trangThaiGV);
+            req.setAttribute("AnhGV", fileAnh);
 
-          var listNganh = sql.hienThi("tblNganh");
-            req.setAttribute("listNganh", listNganh);
-
+            req.setAttribute("danhSachNganh", sql.hienThi("tblNganh"));
             req.getRequestDispatcher("/admin/danhsachgiangvien/them.jsp").forward(req, resp);
             return;
         } else {
+            // Lưu file ảnh
+            sql.themFile(fileAnh, req.getServletContext());
+            // Thêm giảng viên vào CSDL
             gv.them();
         }
+
         req.getSession().setAttribute("thongBao", "Thêm giảng viên thành công");
         resp.sendRedirect(req.getContextPath() + "/admin/danhsachgiangvien/index");
     }
