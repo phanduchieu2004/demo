@@ -113,7 +113,7 @@ prefix="c" %>
           </div>
           <a
             class="btn btn-secondary"
-            href="${pageContext.request.contextPath}/admin/DanhSachVien/index"
+            href="${pageContext.request.contextPath}/admin/danhsachvien/index"
             >Quay lại</a
           >
           <button type="submit" class="btn btn-primary">Sửa</button>

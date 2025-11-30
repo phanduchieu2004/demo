@@ -36,9 +36,9 @@ public class Index extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String[] maKhoa = req.getParameterValues("MSGV");
-        if (maKhoa != null) {
-            for (String ma : maKhoa) {
+        String[] gv = req.getParameterValues("MSGV");
+        if (gv != null) {
+            for (String ma : gv) {
                 sql.xoaBanGhi("tblGiangVien", "MSGV = '" + ma + "'");
             }
         }
