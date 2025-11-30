@@ -61,7 +61,7 @@ public class Sua extends HttpServlet {
 gv.sua(gv);
 
                 req.getSession().setAttribute("thongBao", "Sửa viện thành công");
-                resp.sendRedirect(req.getContextPath() + "/admin/danhsachvien/index");
+                resp.sendRedirect(req.getContextPath() + "/admin/danhsachgiangvien/index");
         }
         
 }

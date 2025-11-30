@@ -61,7 +61,7 @@
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
-                    <scan>10</scan>
+                    <scan>2</scan>
                 </configuration>
             </plugin>
             <plugin>

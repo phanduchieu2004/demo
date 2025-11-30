@@ -175,12 +175,12 @@ prefix="c" %>
                         <td class="col text-center" scope="row">
                           <a
                             class="btn btn-primary btn-sm"
-                            href="${pageContext.request.contextPath}/admin/danhsachgiangvien/sua?MaVien=${gv.MSGV}"
+                            href="${pageContext.request.contextPath}/admin/danhsachgiangvien/sua?MSGV=${gv.MSGV}"
                             >Sửa</a
                           >
                           <a
                             class="btn btn-danger btn-sm"
-                            href="${pageContext.request.contextPath}/admin/danhsachgiangvien/xoa?MaVien=${gv.MSGV}"
+                            href="${pageContext.request.contextPath}/admin/danhsachgiangvien/xoa?MSGV=${gv.MSGV}"
                             onclick="return confirm('Bạn có chắc chắn muốn xóa không?');"
                             >Xóa</a
                           >
