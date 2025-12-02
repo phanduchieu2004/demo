@@ -1,12 +1,11 @@
 com\example\controller\admin\quanlynganh\Index.class
 com\example\controller\admin\quanlyvien\Index.class
+com\example\data\QuanLySQL.class
+com\example\controller\Index.class
+com\example\controller\admin\quanlynganh\Xoa.class
 com\example\data\ChucNangSQL.class
 com\example\controller\admin\quanlynganh\Sua.class
-com\example\data\QuanLySQL.class
 com\example\controller\taikhoan\DangNhap.class
 com\example\controller\admin\quanlyvien\Sua.class
-com\example\controller\Index.class
 com\example\controller\admin\quanlynganh\Them.class
-com\example\controller\admin\quanlynganh\Xoa.class
-com\example\HelloWorldServlet.class
 com\example\controller\admin\quanlyvien\Xoa.class

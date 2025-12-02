@@ -165,7 +165,6 @@ prefix="c" %>
                                                    <td class="col text-center" scope="row">
                           <img
                             src="${pageContext.request.contextPath}/static/uploads/${gv.AnhGV}"
-                            alt="${gv.AnhGV}"
                             style="width: 60px; height: 70px; object-fit: cover"
                           />
                         </td>

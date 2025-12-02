@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+
 @MultipartConfig
 @WebServlet({ "/admin/danhsachgiangvien/sua" })
 public class Sua extends HttpServlet {
@@ -28,17 +29,15 @@ public class Sua extends HttpServlet {
 
                 // ?Lấy danh sách viện có điều kiện theo Mã Viện
                 List<Map<String, Object>> danhSach = sql.hienThi_DieuKien("tblGiangVien", "MSGV='" + msgv + "'");
-                for (Map<String,Object> i : danhSach) {
-                   tblGiangVien gv = new tblGiangVien();
-
-                    tblNganh ng = new tblNganh();
-                    ng.truyVanTheoMa(i.get("MaNganh").toString());
-                     i.put("TenNganh", ng.tenNganh);
+                for (Map<String, Object> i : danhSach) {
+                        tblNganh ng = new tblNganh();
+                        ng.truyVanTheoMa(i.get("MaNganh").toString());
+                        i.put("TenNganh", ng.tenNganh);
 
                 }
 
                 req.setAttribute("gv", danhSach.get(0));
-        req.setAttribute("danhSachNganh", sql.hienThi("tblNganh"));
+                req.setAttribute("danhSachNganh", sql.hienThi("tblNganh"));
 
                 req.getRequestDispatcher("/admin/danhsachgiangvien/sua.jsp")
                                 .forward(req, resp);
@@ -48,24 +47,24 @@ public class Sua extends HttpServlet {
         protected void doPost(HttpServletRequest req, HttpServletResponse resp)
                         throws ServletException, IOException {
                 final String msgv = req.getParameter("MSGV").trim();
-    final String hoTenGV = req.getParameter("HoTenGV").trim();
-    final String ngaySinhGV = sql.doiDinhDangNgay(req.getParameter("NgaySinhGV").trim());
-    final String gioiTinhGV = req.getParameter("GioiTinhGV").trim();
-    final String queQuanGV = req.getParameter("QueQuanGV").trim();
-    final String emailGV = req.getParameter("EmailGV").trim();
-    final String maNganh = req.getParameter("MaNganh").trim();
-    final String soDienThoaiGV = req.getParameter("SoDienThoaiGV").trim();
-   Part fileAnh = req.getPart("AnhGV");
-    final String trangThaiGV = req.getParameter("TrangThaiGV").trim();
-                
+                final String hoTenGV = req.getParameter("HoTenGV").trim();
+                final String ngaySinhGV = sql.doiDinhDangNgay(req.getParameter("NgaySinhGV").trim());
+                final String gioiTinhGV = req.getParameter("GioiTinhGV").trim();
+                final String queQuanGV = req.getParameter("QueQuanGV").trim();
+                final String emailGV = req.getParameter("EmailGV").trim();
+                final String maNganh = req.getParameter("MaNganh").trim();
+                final String soDienThoaiGV = req.getParameter("SoDienThoaiGV").trim();
+                Part fileAnh = req.getPart("AnhGV");
+                final String trangThaiGV = req.getParameter("TrangThaiGV").trim();
+
                 tblGiangVien gv = new tblGiangVien(msgv, hoTenGV, ngaySinhGV,
-                                   gioiTinhGV, queQuanGV, emailGV,
-                                   maNganh, soDienThoaiGV, fileAnh.getSubmittedFileName(), trangThaiGV);
-             sql.themFile(fileAnh, req.getServletContext());
-gv.sua(gv);
+                                gioiTinhGV, queQuanGV, emailGV,
+                                maNganh, soDienThoaiGV, fileAnh.getSubmittedFileName(), trangThaiGV);
+                sql.themFile(fileAnh, req.getServletContext());
+                gv.sua(gv);
 
                 req.getSession().setAttribute("thongBao", "Sửa viện thành công");
                 resp.sendRedirect(req.getContextPath() + "/admin/danhsachgiangvien/index");
         }
-        
+
 }
